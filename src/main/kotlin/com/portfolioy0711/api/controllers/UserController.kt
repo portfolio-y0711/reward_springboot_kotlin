@@ -1,5 +1,6 @@
 package com.portfolioy0711.api.controllers
 
+import com.portfolioy0711.api.data.entities.User
 import com.portfolioy0711.api.services.UserService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -14,9 +15,9 @@ class UserController(private val userService: UserService) {
        return "ok"
     }
 
-//    @GetMapping("/users")
-//    fun getUsers(): MutableMap<String, String> {
-//        val user = userService.fetchUsers()
-//        return user
-//    }
+    @GetMapping("/users")
+    fun getUsers(): MutableIterable<User> {
+        val user = userService.fetchUsers()
+        return user
+    }
 }
