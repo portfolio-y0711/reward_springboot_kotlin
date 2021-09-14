@@ -3,6 +3,7 @@ package com.portfolioy0711.api.data.seeder
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.portfolioy0711.api.data.EventDatabase
+import com.portfolioy0711.api.data.entities.Place
 import com.portfolioy0711.api.data.entities.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
@@ -16,7 +17,7 @@ class DataSeeder: CommandLineRunner {
     @Autowired
     lateinit var eventDatabase: EventDatabase
 
-    override fun run(vararg args: String?) {
+    fun seedUsers() {
         val resource = ClassPathResource("/seeds/users.json").file
         val json = String(Files.readAllBytes(resource.toPath()))
         val objectMapper = ObjectMapper()
@@ -24,5 +25,20 @@ class DataSeeder: CommandLineRunner {
         val userModel = eventDatabase.userModel;
         users.forEach { user -> userModel.save(user) }
     }
+
+    fun seedPlaces() {
+        val resource = ClassPathResource("/seeds/places.json").file
+        val json = String(Files.readAllBytes(resource.toPath()))
+        val objectMapper = ObjectMapper()
+        val places: List<Place> = objectMapper.readValue(json)
+        val placeModel = eventDatabase.placeModel;
+        places.forEach { place -> placeModel.save(place) }
+    }
+
+    override fun run(vararg args: String?) {
+        seedUsers()
+        seedPlaces()
+    }
+
 }
 

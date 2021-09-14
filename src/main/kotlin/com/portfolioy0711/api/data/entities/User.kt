@@ -8,8 +8,8 @@ import javax.persistence.Table
 @Entity
 @Table(name = "user")
 data class User(
-    @Id var userId: String,
-    @Column var name: String,
-    @Column var rewardPoint: Int
+        @Id @Column(name = "userId") var userId: String,
+        @Column(nullable = false) var name: String,
+        @Column(nullable = false ) var rewardPoint: Int
 )
 

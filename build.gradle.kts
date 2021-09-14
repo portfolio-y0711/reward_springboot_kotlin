@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 val cucumberVersion = "5.4.1"
 
 plugins {
-    id("org.springframework.boot") version "2.3.4.RELEASE"
+    id("org.springframework.boot") version "2.3.5.RELEASE"
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
     kotlin("jvm") version "1.3.72"
     kotlin("plugin.spring") version "1.3.72"
@@ -14,8 +14,8 @@ plugins {
 
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_11
-//java.sourceCompatibility = JavaVersion.
+//java.sourceCompatibility = JavaVersion.VERSION_11
+java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()
@@ -25,8 +25,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 
-    implementation("com.querydsl:querydsl-jpa:4.2.1")
-    kapt("com.querydsl:querydsl-apt:4.2.2:jpa")
+    implementation("com.querydsl:querydsl-jpa:4.3.1")
+    kapt("com.querydsl:querydsl-apt:4.3.1:jpa")
     annotationProcessor(group = "com.querydsl", name = "querydsl-apt", classifier = "jpa")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
@@ -72,8 +72,8 @@ sourceSets["main"].withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourc
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-//        jvmTarget = "1.8"
-        jvmTarget = "11"
+        jvmTarget = "1.8"
+//        jvmTarget = "11"
     }
 }
 

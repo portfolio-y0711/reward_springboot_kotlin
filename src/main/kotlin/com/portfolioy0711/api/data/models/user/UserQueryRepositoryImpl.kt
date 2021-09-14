@@ -1,19 +1,20 @@
 package com.portfolioy0711.api.data.models.user
 
 import com.portfolioy0711.api.data.entities.QUser
-import com.portfolioy0711.api.data.entities.User
 import com.querydsl.jpa.impl.JPAQueryFactory
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Repository
 
-@Component
+@Repository
 class UserQueryRepositoryImpl(
-       @Autowired val query: JPAQueryFactory
+   val query: JPAQueryFactory
 ): UserQueryRepository {
-    override fun findUsers(): MutableList<User> {
+
+    override fun findUserRewardPoint(userId: String): Int {
         val user = QUser.user;
-        return query.select(user)
-                .from(user)
-                .fetch()!!
+     return query
+             .select(user.rewardPoint)
+             .from(user)
+             .where(user.userId.eq(userId))
+             .fetchOne()!!
     }
 }

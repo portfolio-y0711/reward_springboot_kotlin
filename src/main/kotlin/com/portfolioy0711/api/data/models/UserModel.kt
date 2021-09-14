@@ -1,6 +1,8 @@
-package com.portfolioy0711.api.data.models.user
+package com.portfolioy0711.api.data.models
 
 import com.portfolioy0711.api.data.entities.User
+import com.portfolioy0711.api.data.models.user.UserCmdRepository
+import com.portfolioy0711.api.data.models.user.UserQueryRepository
 import org.springframework.stereotype.Component
 
 @Component
@@ -13,7 +15,7 @@ class UserModel(
         return userCmdRepository.save(user)
     }
 
-    fun findUsers(): MutableIterable<User> {
-        return userQueryRepository.findUsers()
+    fun findUserRewardPoint(userId: String): Int {
+        return userQueryRepository.findUserRewardPoint(userId)
     }
 }
