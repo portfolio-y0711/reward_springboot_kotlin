@@ -20,6 +20,7 @@ class UserController(private val userRepository: UserRepository) {
                 "uuid" to "3ede0ef2-92b7-4817-a5f3-0c575361f745",
                 "name" to "michael"
         )
+        userRepository.findUsers()
         return user
     }
 }
