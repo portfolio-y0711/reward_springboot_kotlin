@@ -10,14 +10,10 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/")
 class UserController(private val userService: UserService) {
 
-    @GetMapping("/healthCheck")
-    fun healthCheck(): String {
-       return "ok"
-    }
-
     @GetMapping("/users")
     fun getUsers(): MutableIterable<User> {
         val user = userService.fetchUsers()
         return user
     }
+
 }

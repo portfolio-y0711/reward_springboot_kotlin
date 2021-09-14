@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val cucumberVersion = "6.2.2"
+//val cucumberVersion = "6.2.2"
+val cucumberVersion = "5.4.1"
 
 plugins {
     id("org.springframework.boot") version "2.3.4.RELEASE"
@@ -13,7 +14,8 @@ plugins {
 
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+java.sourceCompatibility = JavaVersion.VERSION_11
+//java.sourceCompatibility = JavaVersion.
 
 repositories {
     mavenCentral()
@@ -70,7 +72,8 @@ sourceSets["main"].withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourc
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "1.8"
+//        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 

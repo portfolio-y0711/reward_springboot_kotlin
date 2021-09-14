@@ -1,8 +1,8 @@
 package com.portfolioy0711.api._unit._2_services
 
-import io.mockk.mockk
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
+//import io.mockk.mockk
+//import org.junit.jupiter.api.BeforeEach
+//import org.junit.jupiter.api.Test
 
 class UserServiceTest {
 //    lateinit var userRepository: UserRepository
@@ -12,7 +12,7 @@ class UserServiceTest {
 //        userRepository = mockk<UserRepository>(relaxed = true)
 //    }
 
-    @Test
+//    @Test
     fun `SERVICE_fetch_users should invoke REPOSITORY_findUsers`() {
 //        val service = UserService(userRepository)
 //        service.fetchUsers()
