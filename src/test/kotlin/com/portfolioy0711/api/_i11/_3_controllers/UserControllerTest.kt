@@ -10,10 +10,8 @@ import org.springframework.test.web.servlet.get
 @SpringBootTest
 @AutoConfigureMockMvc
 class UserControllerTest {
-
     @Autowired
     lateinit var mockMvc: MockMvc
-
 
     @Test
     fun `GET_users_should return List of User`() {

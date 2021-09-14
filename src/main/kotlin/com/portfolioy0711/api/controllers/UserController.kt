@@ -14,9 +14,9 @@ class UserController(private val userService: UserService) {
        return "ok"
     }
 
-    @GetMapping("/users")
-    fun getUsers(): MutableMap<String, String> {
-        val user = userService.fetchUsers()
-        return user
-    }
+//    @GetMapping("/users")
+//    fun getUsers(): MutableMap<String, String> {
+//        val user = userService.fetchUsers()
+//        return user
+//    }
 }

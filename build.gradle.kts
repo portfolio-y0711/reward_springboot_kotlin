@@ -34,7 +34,7 @@ dependencies {
     }
 
     testImplementation("org.junit.jupiter:junit-jupiter-api")
-    testImplementation("com.ninja-squad:springmockk:3.0.1")
+    testImplementation("com.ninja-squad:springmockk:2.0.3")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
