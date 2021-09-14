@@ -1,0 +1,33 @@
+spring:
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+         show_sql: true
+      properties:
+        # logging.level.org.hibernate.SQL을 debug로 두면 로거를 사용해 SQL이 출력된다.
+        # system.out 대신 logger를 쓰고 싶다면 spring.jpa.hibernate.properties.show_sql 은 사용하지 말자.
+        use_sql_comments: true
+      database-platform: org.hibernate.dialect.H2Dialect
+
+#logging.level:
+#  org.hibernate.SQL: debug
+# org.hibernate.type: trace
