@@ -7,7 +7,7 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "user")
-class User(
+data class User(
     @Id var userId: String,
     @Column var name: String,
     @Column var rewardPoint: Int
