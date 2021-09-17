@@ -1,6 +1,6 @@
 package com.portfolioy0711.api.typings.dto
 
-class ReviewEventDto(
+data class ReviewEventDto(
     val type: String,
     val action: String,
     val reviewId: String,

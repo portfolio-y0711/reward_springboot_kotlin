@@ -2,6 +2,7 @@ package com.portfolioy0711.api._unit._2_services
 
 import com.portfolioy0711.api.services.EventService
 import com.portfolioy0711.api.services.review.ReviewEventActionRouter
+import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Test
