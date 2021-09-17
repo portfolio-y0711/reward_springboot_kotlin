@@ -15,13 +15,14 @@ class ReviewEventActionRouter : EventRouter {
     val routes: MutableMap<String, ActionHandler> = mutableMapOf()
 
     fun addRoute(path: String, handler: ActionHandler): ReviewEventActionRouter {
-        this.routes.put(path, handler)
+        this.routes[path] = handler
         return this
     }
     override fun route(body: String) {
         val eventInfo: ReviewEventDto = EventValidator(body)
                 .validate("action", ReviewActionEnum.getReviewActionTypes())
-                .transform(ReviewEventDto::class.java)
+                .transform<ReviewEventDto>(ReviewEventDto::class.java)
+        println(eventInfo)
         this.routes[eventInfo.action]!!.handleEvent(eventInfo)
 
     }

@@ -18,4 +18,8 @@ class UserModel(
     fun findUserRewardPoint(userId: String): Int {
         return userQueryRepository.findUserRewardPoint(userId)
     }
+
+    fun findUserByUserId(userId: String): User {
+        return userQueryRepository.findUserByUserId(userId)
+    }
 }

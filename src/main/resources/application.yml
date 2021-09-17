@@ -31,3 +31,7 @@ spring:
 #logging.level:
 #  org.hibernate.SQL: debug
 # org.hibernate.type: trace
+
+
+#logging:
+#  config: classpath:logback.xml

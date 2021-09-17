@@ -28,7 +28,8 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-//    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
+//    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.11.1")
 
 
     implementation("com.querydsl:querydsl-jpa:4.3.1")
@@ -64,7 +65,6 @@ dependencies {
     testImplementation("io.cucumber", "cucumber-junit", cucumberVersion)
     testImplementation("io.cucumber", "cucumber-spring", cucumberVersion)
 
-    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.11.1")
 
 
 

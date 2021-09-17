@@ -1,6 +1,7 @@
 package com.portfolioy0711.api.data.models.user
 
 import com.portfolioy0711.api.data.entities.QUser
+import com.portfolioy0711.api.data.entities.User
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Repository
 
@@ -16,5 +17,14 @@ class UserQueryRepositoryImpl(
              .from(user)
              .where(user.userId.eq(userId))
              .fetchOne()!!
+    }
+
+    override fun findUserByUserId(userId: String): User {
+        val user = QUser.user;
+        return query
+                .select(user)
+                .from(user)
+                .where(user.userId.eq(userId))
+                .fetchOne()!!
     }
 }
