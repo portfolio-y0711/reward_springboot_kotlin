@@ -1,8 +1,8 @@
 package com.portfolioy0711.api._unit._2_services
 
-//import io.mockk.mockk
-//import org.junit.jupiter.api.BeforeEach
-//import org.junit.jupiter.api.Test
+import io.mockk.mockk
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 class UserServiceTest {
 //    lateinit var userRepository: UserRepository
