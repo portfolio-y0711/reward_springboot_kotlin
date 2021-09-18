@@ -1,17 +1,16 @@
 package com.portfolioy0711.api.data.entities
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
+import javax.persistence.*
 import kotlin.properties.Delegates
 
 @Entity
 @Table(name = "user")
 data class User(
-        @Id @Column(name = "userId") var userId: String,
-        @Column(nullable = false) var name: String,
-        @Column(nullable = false ) var rewardPoint: Int
+        @Id @Column(name = "userId") val userId: String,
+        @Column(nullable = false) val name: String,
+        @Column(nullable = false ) val rewardPoint: Int,
+        @OneToMany(mappedBy = "user")
+        val reviews: Set<Review> = setOf()
 ) {
     private constructor(builder: Builder): this(builder.userId, builder.name, builder.rewardPoint)
 
@@ -25,11 +24,13 @@ data class User(
         var rewardPoint by Delegates.notNull<Int>()
             private set
 
+//        lateinit var reviews: Set<Review>
+//            private set
+
         fun userId(userId: String) = apply { this.userId = userId }
-
         fun name(name: String) = apply { this.name = name }
-
         fun rewardPoint(rewardPoint: Int) = apply { this.rewardPoint = rewardPoint }
+//        fun reviews(reviews: Set<Review>) = apply { this.reviews = reviews }
 
         fun build() = User(userId, name, rewardPoint)
     }

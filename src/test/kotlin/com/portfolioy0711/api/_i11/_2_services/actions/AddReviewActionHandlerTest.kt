@@ -113,9 +113,12 @@ internal class AddReviewActionHandlerTest {
             val photoIds = eventInfo.attachedPhotoIds
 
             Arrays.stream(photoIds)
-                    .map{ photoId -> Photo(photoId
-//                            , review
-                    ) }
+                    .map{ photoId ->
+                        Photo.Builder()
+                            .photoId(photoId)
+                            .review(review)
+                            .build()
+                    }
                     .forEach(photoModel::save)
 
 
