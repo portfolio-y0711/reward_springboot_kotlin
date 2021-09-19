@@ -9,13 +9,16 @@ data class Photo(
         @JoinColumn(name = "reviewId", nullable = true)
         val review: Review
 ) {
-        class Builder {
-                lateinit var photoId: String
-                lateinit var review: Review
+    private constructor(builder: Builder) : this(builder.photoId, builder.review)
 
-                fun photoId(photoId: String) = apply { this.photoId = photoId }
-                fun review(review: Review) = apply { this.review = review }
+    class Builder {
 
-                fun build() = Photo(photoId, review)
-        }
+        lateinit var photoId: String
+        lateinit var review: Review
+
+        fun photoId(photoId: String) = apply { this.photoId = photoId }
+        fun review(review: Review) = apply { this.review = review }
+
+        fun build() = Photo(photoId, review)
+    }
 }

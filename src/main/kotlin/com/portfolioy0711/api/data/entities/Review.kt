@@ -17,7 +17,10 @@ data class Review(
         val user: User,
 
         @Column val content: String,
-        @Column val rewarded: Int
+        @Column val rewarded: Int,
+        @OneToMany(mappedBy = "review")
+        val photos: Set<Photo> = hashSetOf()
+
 ) {
     private constructor(builder: Builder) : this(builder.reviewId, builder.place, builder.user, builder.content, builder.rewarded)
 
