@@ -11,7 +11,7 @@ data class User(
         @Column(nullable = false ) val rewardPoint: Int,
         @OneToMany(mappedBy = "user")
         val reviews: Set<Review> = setOf()
-) {
+): Base() {
     private constructor(builder: Builder): this(builder.userId, builder.name, builder.rewardPoint)
 
 

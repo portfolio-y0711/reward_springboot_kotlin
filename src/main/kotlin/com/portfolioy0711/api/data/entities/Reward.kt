@@ -12,7 +12,7 @@ data class Reward(
     @Column val operation: String,
     @Column val pointDelta: Int,
     @Column val reason: String
-) {
+): Base() {
     private constructor(builder: Builder): this(builder.rewardId, builder.reviewId, builder.user, builder.operation, builder.pointDelta, builder.reason)
 
     override fun toString(): String {

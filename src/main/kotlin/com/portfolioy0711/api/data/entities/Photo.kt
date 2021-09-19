@@ -8,7 +8,7 @@ data class Photo(
         @ManyToOne(targetEntity = Review::class, fetch = FetchType.LAZY)
         @JoinColumn(name = "reviewId", nullable = true)
         val review: Review
-) {
+): Base() {
     override fun toString(): String {
         return super.toString()
     }

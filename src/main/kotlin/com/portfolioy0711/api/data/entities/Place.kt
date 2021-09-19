@@ -12,7 +12,7 @@ data class Place (
     @Column val bonusPoint: Int,
     @OneToMany(mappedBy = "place")
     val reviews: Set<Review> = setOf()
-) {
+): Base() {
    private constructor(builder: Builder): this(builder.placeId, builder.name, builder.country, builder.bonusPoint)
 
    override fun toString(): String {

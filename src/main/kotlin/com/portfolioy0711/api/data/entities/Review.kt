@@ -21,7 +21,7 @@ data class Review(
         @OneToMany(mappedBy = "review")
         val photos: Set<Photo> = hashSetOf()
 
-) {
+): Base() {
 
     override fun toString(): String {
         return """Review(reviewId: ${reviewId}, place:${place.placeId}, user: ${user.userId}, content: ${content}, rewarded: ${rewarded}, photos: ${photos.toString()})"""
