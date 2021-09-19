@@ -14,8 +14,8 @@ class ReviewModel(
         return reviewQueryRepository.checkRecordExistsByReviewId(reviewId)
     }
 
-    fun findReviewCountsByPlaceId(placeId: String): Int {
-       return 0
+    fun findReviewCountsByPlaceId(placeId: String): Long {
+       return reviewQueryRepository.findReviewCountsByPlaceId(placeId)
     }
 
     fun save(review: Review): Review {

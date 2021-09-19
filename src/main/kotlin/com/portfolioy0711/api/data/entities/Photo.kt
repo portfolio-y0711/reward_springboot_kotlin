@@ -9,6 +9,10 @@ data class Photo(
         @JoinColumn(name = "reviewId", nullable = true)
         val review: Review
 ) {
+    override fun toString(): String {
+        return super.toString()
+    }
+
     private constructor(builder: Builder) : this(builder.photoId, builder.review)
 
     class Builder {

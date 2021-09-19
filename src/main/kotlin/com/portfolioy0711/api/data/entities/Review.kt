@@ -22,6 +22,11 @@ data class Review(
         val photos: Set<Photo> = hashSetOf()
 
 ) {
+
+    override fun toString(): String {
+        return """Review(reviewId: ${reviewId}, place:${place.placeId}, user: ${user.userId}, content: ${content}, rewarded: ${rewarded}, photos: ${photos.toString()})"""
+    }
+
     private constructor(builder: Builder) : this(builder.reviewId, builder.place, builder.user, builder.content, builder.rewarded)
 
     class Builder {

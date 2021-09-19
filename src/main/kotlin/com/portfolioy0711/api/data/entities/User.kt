@@ -14,6 +14,32 @@ data class User(
 ) {
     private constructor(builder: Builder): this(builder.userId, builder.name, builder.rewardPoint)
 
+
+
+    override fun toString(): String {
+        return """User(userId: ${userId}, name: ${name}, rewardPoint: ${rewardPoint})"""
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as User
+
+        if (userId != other.userId) return false
+        if (name != other.name) return false
+        if (rewardPoint != other.rewardPoint) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = userId.hashCode()
+        result = 31 * result + name.hashCode()
+        result = 31 * result + rewardPoint
+        return result
+    }
+
     class Builder {
         lateinit var userId: String
             private set

@@ -13,7 +13,11 @@ data class Reward(
     @Column val pointDelta: Int,
     @Column val reason: String
 ) {
-    private constructor(builder: Reward.Builder): this(builder.rewardId, builder.reviewId, builder.user, builder.operation, builder.pointDelta, builder.reason)
+    private constructor(builder: Builder): this(builder.rewardId, builder.reviewId, builder.user, builder.operation, builder.pointDelta, builder.reason)
+
+    override fun toString(): String {
+        return super.toString()
+    }
 
     class Builder {
         lateinit var rewardId: String

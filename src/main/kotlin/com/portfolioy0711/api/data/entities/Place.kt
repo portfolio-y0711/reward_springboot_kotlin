@@ -15,6 +15,33 @@ data class Place (
 ) {
    private constructor(builder: Builder): this(builder.placeId, builder.name, builder.country, builder.bonusPoint)
 
+   override fun toString(): String {
+      return """Place(placeId: ${placeId}, name:${name}, country: ${country}, bonusPoint: ${bonusPoint})"""
+   }
+
+   override fun equals(other: Any?): Boolean {
+      if (this === other) return true
+      if (javaClass != other?.javaClass) return false
+
+      other as Place
+
+      if (placeId != other.placeId) return false
+      if (name != other.name) return false
+      if (country != other.country) return false
+      if (bonusPoint != other.bonusPoint) return false
+
+      return true
+   }
+
+   override fun hashCode(): Int {
+      var result = placeId.hashCode()
+      result = 31 * result + name.hashCode()
+      result = 31 * result + country.hashCode()
+      result = 31 * result + bonusPoint
+      return result
+   }
+
+
    class Builder {
       lateinit var placeId: String
       lateinit var name: String

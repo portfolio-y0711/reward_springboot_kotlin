@@ -45,7 +45,7 @@ internal class AddReviewActionHandlerTest {
 
         val reviewCount = reviewModel.findReviewCountsByPlaceId(eventInfo.placeId)
 
-        val isRewardable: Boolean = (reviewCount == 0)
+        val isRewardable: Boolean = (reviewCount == 0L)
 
         logger.info("""    ‣    place id : ${eventInfo.placeId}""")
         logger.info("""    ‣    review counts: $reviewCount""")

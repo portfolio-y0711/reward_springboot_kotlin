@@ -7,12 +7,18 @@ import com.portfolioy0711.api.data.entities.Place
 import com.portfolioy0711.api.data.entities.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.CommandLineRunner
+import org.springframework.core.env.Environment
 import org.springframework.core.io.ClassPathResource
 import org.springframework.stereotype.Component
 import java.nio.file.Files
+import java.util.*
+import kotlin.streams.toList
 
 @Component
 class DataSeeder: CommandLineRunner {
+
+    @Autowired
+    lateinit var env: Environment
 
     @Autowired
     lateinit var eventDatabase: EventDatabase
@@ -36,8 +42,12 @@ class DataSeeder: CommandLineRunner {
     }
 
     override fun run(vararg args: String?) {
-        seedUsers()
-        seedPlaces()
+        val isProduction: Boolean = Arrays.stream(env.activeProfiles).toList().contains("production") || Arrays.stream(args).toList().contains("production")
+
+        if (isProduction) {
+            seedUsers()
+            seedPlaces()
+        }
     }
 
 }

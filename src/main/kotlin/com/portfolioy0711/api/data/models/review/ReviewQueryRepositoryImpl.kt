@@ -20,7 +20,11 @@ class ReviewQueryRepositoryImpl: ReviewQueryRepository {
         return result > 0
     }
 
-    override fun findReviewCountsByPlaceId(placeId: String): Int {
-         return 0
+    override fun findReviewCountsByPlaceId(placeId: String): Long {
+        val review = QReview.review
+         return query.select(review)
+                 .from(review)
+                 .where(review.place.placeId.eq(placeId))
+                 .fetchCount()
     }
 }

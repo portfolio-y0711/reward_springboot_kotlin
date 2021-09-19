@@ -6,7 +6,7 @@
 
 ### API 데모
 
-[![데모](http://img.youtube.com/vi/7iE5rkEBu9Y/0.jpg)](https://www.youtube.com/watch?v=7iE5rkEBu9Y?t=0s)
+<!-- [![데모](http://img.youtube.com/vi/7iE5rkEBu9Y/0.jpg)](https://www.youtube.com/watch?v=7iE5rkEBu9Y?t=0s) -->
 
 [동일한 기능의 Node.js / Express 버전 바로가기 >>>>>](https://github.com/portfolio-y0711/reward_backend)
 
@@ -62,12 +62,11 @@ _$ java -jar demo-0.0.1-SNAPSHOT.jar --server.port=8080_
 - Spring Web (server application)
 - Spring Data JPA (database adaptor)
 - Spring QueryDSL (domain Specific language for JPQL)
-- Swagger (openAPI documentation tools)
-<!--
 - Cucumber (test specification tools)
-- Mockito (mocking tools)
+- Mockk (mocking tools)
 - Logback (as application logger)
 - H2 (database)
+- Swagger (openAPI documentation tools)
 
 💻 &nbsp; **구현한 기능** :
 
