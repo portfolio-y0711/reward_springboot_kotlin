@@ -11,7 +11,7 @@ class UserQueryRepositoryImpl(
 ): UserQueryRepository {
 
     override fun findUserRewardPoint(userId: String): Int {
-        val user = QUser.user;
+        val user = QUser.user
      return query
              .select(user.rewardPoint)
              .from(user)
@@ -20,11 +20,26 @@ class UserQueryRepositoryImpl(
     }
 
     override fun findUserByUserId(userId: String): User {
-        val user = QUser.user;
+        val user = QUser.user
         return query
                 .select(user)
                 .from(user)
                 .where(user.userId.eq(userId))
                 .fetchOne()!!
+    }
+
+    override fun updateRewardPoint(userId: String, rewardPoint: Int): Long {
+        val user = QUser.user
+        var result = 0L
+        try {
+           result = query
+               .update(user)
+               .where(user.userId.eq(userId))
+               .set(user.rewardPoint, rewardPoint)
+               .execute()
+        } catch (e: Exception) {
+            println()
+        }
+        return result
     }
 }

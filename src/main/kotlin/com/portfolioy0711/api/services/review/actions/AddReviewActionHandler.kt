@@ -103,6 +103,13 @@ open class AddReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
                                 .build()
                     }
                     .forEach(photoModel::save)
+
+            logger.info("""    [✔︎] %s PHOTOS created & attached", photoIds.size""")
+            userModel.updateRewardPoint(eventInfo.userId, currPoint + addPoint);
+
+            logger.info("""   [✔︎] USERS total reward point updated""")
+            logger.info("""   transaction finished -------------------------------------END""")
         }
+        logger.info("===================================================================================END");
     }
 }

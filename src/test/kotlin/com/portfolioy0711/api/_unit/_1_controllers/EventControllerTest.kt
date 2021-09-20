@@ -1,9 +1,8 @@
 package com.portfolioy0711.api._unit._1_controllers
 
-import com.portfolioy0711.api.controllers.EventController
+import com.portfolioy0711.api.controllers.event.EventController
 import com.portfolioy0711.api.data.EventDatabase
 import com.portfolioy0711.api.services.EventService
-import com.portfolioy0711.api.services.UserService
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
