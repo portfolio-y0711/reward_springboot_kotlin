@@ -10,9 +10,6 @@ enum class EventTypeEnum(val eventType: String) {
 
     companion object {
         fun getEventTypes(): Array<String> {
-//            return values().asSequence().asStream().map{
-//                e -> e.eventType as String
-//            }.toList().toTypedArray()
             return stream().map{
                 e -> e.eventType as String
             }.toList().toTypedArray()

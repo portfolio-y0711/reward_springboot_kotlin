@@ -20,7 +20,7 @@ class EventService() {
     fun route(body: String) {
        val eventType: String = EventValidator(body).validate("type", EventTypeEnum.getEventTypes())
                .getValueAsType<String>("type")
-        this.routes.get(eventType)!!.route(eventType)
+        this.routes.get(eventType)!!.route(body)
 
     }
 }

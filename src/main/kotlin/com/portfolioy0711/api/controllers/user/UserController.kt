@@ -1,4 +1,4 @@
-package com.portfolioy0711.api.controllers
+package com.portfolioy0711.api.controllers.user
 
 import com.portfolioy0711.api.services.UserService
 import com.portfolioy0711.api.typings.response.UserRewardPointResponse
