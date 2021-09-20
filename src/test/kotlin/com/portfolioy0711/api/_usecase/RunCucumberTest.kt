@@ -8,9 +8,13 @@ import org.junit.runner.RunWith
 @CucumberOptions(
         strict = true,
         monochrome = true,
-        glue = ["com.portfolioy0711.api._usecase.steps"],
+        glue = ["com.portfolioy0711.api._usecase"],
         stepNotifications = true,
-        features = ["src/test/resources/features/scenarios.add.feature"],
+        features = [
+            "src/test/resources/features/ADD/scenarios.add.feature",
+            "src/test/resources/features/MOD/scenarios.mod.feature",
+            "src/test/resources/features/DEL/scenarios.del.feature"
+        ],
         plugin = ["pretty"]
 )
 

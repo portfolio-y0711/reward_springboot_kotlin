@@ -1,6 +1,5 @@
 package com.portfolioy0711.api._usecase.steps
 
-import com.portfolioy0711.api.ApiApplication
 import com.portfolioy0711.api.data.EventDatabase
 import com.portfolioy0711.api.data.entities.Place
 import com.portfolioy0711.api.data.entities.User
@@ -16,13 +15,7 @@ import io.cucumber.java8.Scenario
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
 
-
-@SpringBootTest(
-        classes = [ApiApplication::class],
-        webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT
-)
 
 class ScenarioAddSteps: En {
     private val log = LoggerFactory.getLogger(this::class.java)
@@ -71,27 +64,27 @@ class ScenarioAddSteps: En {
                 User(entry["userId"]!!, entry["name"]!!, entry["rewardPoint"]!!.toInt())
         }
 
-        Given("1_아래와 같이 특정 장소가 등록되어 있음") { dataTable: DataTable ->
+        Given("ADD_1_아래와 같이 특정 장소가 등록되어 있음") { dataTable: DataTable ->
             val place: List<Place> = dataTable.asList(Place::class.java)
             val expected = place.get(0)
             val actual = placeModel.findPlaceByPlaceId(place.get(0).placeId)
             assertEquals(expected, actual)
         }
 
-        And("2_아래와 같이 특정 유저가 등록되어 있음") { dataTable: DataTable ->
+        And("ADD_2_아래와 같이 특정 유저가 등록되어 있음") { dataTable: DataTable ->
             val user: List<User> = dataTable.asList(User::class.java)
             val expected = user.get(0)
             val actual = userModel.findUserByUserId(expected.userId)
             assertEquals(expected, actual)
         }
 
-        Given("3_아래 장소에 대한 리뷰글이 존재하지 않음") { dataTable: DataTable ->
+        Given("ADD_3_아래 장소에 대한 리뷰글이 존재하지 않음") { dataTable: DataTable ->
             val placeId = dataTable.row(1).get(0)
             val reviewCounts = reviewModel.findReviewCountsByPlaceId(placeId)
             assertEquals(reviewCounts, 0)
         }
 
-        Given("4_유저가 아래와 같이 리뷰글을 작성함") { dataTable: DataTable ->
+        Given("ADD_4_유저가 아래와 같이 리뷰글을 작성함") { dataTable: DataTable ->
             val review: Map<String, String> = dataTable.asMaps()[0]
             val type = review.get("type")!!
             val action = review.get("action")!!
@@ -114,7 +107,7 @@ class ScenarioAddSteps: En {
             AddReviewActionHandler(eventDatabase).handleEvent(reviewEventDto)
         }
 
-        Then("5_유저의 리워드 레코드가 아래와 같이 생성됨") { dataTable: DataTable ->
+        Then("ADD_5_유저의 리워드 레코드가 아래와 같이 생성됨") { dataTable: DataTable ->
             val reward: Map<String, String> = dataTable.asMaps()[0]
             val userId = reward.get("userId")!!
             val reviewId = reward.get("reviewId")!!
@@ -123,15 +116,15 @@ class ScenarioAddSteps: En {
             val reason = reward.get("reason")!!
 
             val actual = rewardModel.findLatestUserReviewRewardByReviewId(userId, reviewId)
-            assertEquals(dataTable, "")
+//            assertEquals(dataTable, "")
         }
 
-        And("6_유저의 포인트 총점이 아래와 같아짐") { dataTable: DataTable ->
+        And("ADD_6_유저의 포인트 총점이 아래와 같아짐") { dataTable: DataTable ->
             val (userId, rewardPoint) = dataTable.row(1)
 //            assertEquals(userId, "")
         }
 
-        And("7_유저의 리뷰 레코드가 아래와 같이 생성됨") { dataTable: DataTable ->
+        And("ADD_7_유저의 리뷰 레코드가 아래와 같이 생성됨") { dataTable: DataTable ->
             val review: Map<String, String> = dataTable.asMaps()[0]
             val reviewId = review.get("reviewId")!!
             val placeId = review.get("placeId")!!
