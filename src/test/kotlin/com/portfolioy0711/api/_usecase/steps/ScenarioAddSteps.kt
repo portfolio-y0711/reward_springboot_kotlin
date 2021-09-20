@@ -123,7 +123,7 @@ class ScenarioAddSteps: En {
             val reason = reward.get("reason")!!
 
             val actual = rewardModel.findLatestUserReviewRewardByReviewId(userId, reviewId)
-//            assertEquals(dataTable, "")
+            assertEquals(dataTable, "")
         }
 
         And("6_유저의 포인트 총점이 아래와 같아짐") { dataTable: DataTable ->

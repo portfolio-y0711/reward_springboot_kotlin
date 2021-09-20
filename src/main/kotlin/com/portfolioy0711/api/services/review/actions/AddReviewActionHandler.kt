@@ -65,9 +65,9 @@ open class AddReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
 
             val addPoint = contentPoint + photosPoint + bonusPoint
 
-            logger.info("""+ content point: $contentPoint""")
-            logger.info("""+ photos point: $photosPoint""")
-            logger.info("""= total point : $addPoint""")
+            logger.info("""    + content point: $contentPoint""")
+            logger.info("""    + photos point: $photosPoint""")
+            logger.info("""    = total point : $addPoint""")
 
             val currPoint = userModel.findUserRewardPoint(eventInfo.userId)
 

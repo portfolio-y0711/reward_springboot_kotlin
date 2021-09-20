@@ -31,7 +31,6 @@ class EventValidator(val body: String) {
     fun <T> getValueAsType(key: String): T {
         return this.jsonLikeMap[key] as T
     }
-//    fun <T extends EventDto> transform(type: Class<T>): T {
     inline fun <reified T> transform(java: Class<T>): T {
         return gson.fromJson(this.body, T::class.java)
     }

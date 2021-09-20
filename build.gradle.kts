@@ -58,8 +58,10 @@ dependencies {
     runtimeOnly("org.springframework.boot:spring-boot-devtools")
     kapt("org.springframework.boot:spring-boot-configuration-processor")
 
-    implementation("io.springfox:springfox-swagger2:2.9.2")
-    implementation("io.springfox:springfox-swagger-ui:2.9.2")
+//    implementation("io.springfox:springfox-swagger2:2.9.2")
+//    implementation("io.springfox:springfox-swagger-ui:2.9.2")
+    implementation("io.springfox:springfox-boot-starter:3.0.0")
+
 
     testImplementation("io.cucumber", "cucumber-java8", cucumberVersion)
     testImplementation("io.cucumber", "cucumber-junit", cucumberVersion)

@@ -12,7 +12,6 @@ data class EventDatabase(
     @Autowired val reviewModel: ReviewModel,
     @Autowired val rewardModel: RewardModel,
     @Autowired val photoModel: PhotoModel
-) {
+)
 
-}
 
