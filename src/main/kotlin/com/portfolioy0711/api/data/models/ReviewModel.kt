@@ -44,7 +44,7 @@ class ReviewModel(
     }
 
     @Transactional
-    fun findReviewByReviewId(reviewId: String): Review {
+    fun findReviewByReviewId(reviewId: String): Review? {
         return reviewQueryRepository.findReviewByReviewId(reviewId)
     }
 

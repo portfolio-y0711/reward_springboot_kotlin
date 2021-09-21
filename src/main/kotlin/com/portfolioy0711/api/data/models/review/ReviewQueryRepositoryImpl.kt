@@ -69,13 +69,12 @@ class ReviewQueryRepositoryImpl: ReviewQueryRepository {
         return found
     }
 
-    override fun findReviewByReviewId(reviewId: String): Review {
+    override fun findReviewByReviewId(reviewId: String): Review? {
         val review = QReview.review
         val found = query.select(review)
                 .from(review)
                 .where(review.reviewId.eq(reviewId))
-                .fetchOne()!!
-        println(found)
+                .fetchOne()
         return found
     }
 

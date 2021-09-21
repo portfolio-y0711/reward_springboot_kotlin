@@ -127,7 +127,7 @@ open class ModReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
 
         val photoModel = eventDatabase.photoModel
 
-        val review = reviewModel.findReviewByReviewId(eventInfo.reviewId)
+        val review = reviewModel.findReviewByReviewId(eventInfo.reviewId)!!
 
         if (add_photo_ids.isNotEmpty()) {
             Arrays.stream(add_photo_ids)
