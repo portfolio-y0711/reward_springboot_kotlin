@@ -19,7 +19,7 @@ open class DelReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
         logger.info("""[EVENT: ReviewEventActionHandler (${eventInfo.action})] started process ========================START""")
         val reviewModel = eventDatabase.reviewModel
 
-        val found = reviewModel.findReviewInfoByReviewId(eventInfo.reviewId)
+        val found = reviewModel.findReviewByReviewId(eventInfo.reviewId)
 
         if (found == null) {
             logger.error("\t‣" + "\tno record exists by that reviewId")
@@ -77,7 +77,7 @@ open class DelReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
             logger.info("""    [✔︎] USERS total rewardPoint updated""")
         }
 
-        val currentReview = reviewModel.findReviewInfoByReviewId(eventInfo.reviewId)
+        val currentReview = reviewModel.findReviewInfoByReviewId_native(eventInfo.reviewId)
         val delete_photo_ids: Array<String> = currentReview!!.photoIds.toList().toTypedArray()
 
         val photoModel = eventDatabase.photoModel

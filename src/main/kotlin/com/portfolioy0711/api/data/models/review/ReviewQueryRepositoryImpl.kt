@@ -46,7 +46,7 @@ class ReviewQueryRepositoryImpl: ReviewQueryRepository {
         try {
             found = query.select(review)
                     .from(review)
-                    .where((review.reviewId.eq(reviewId)))
+                    .where(review.reviewId.eq(reviewId))
                     .join(review.place, place)
                     .join(review.user, user)
                     .join(review.photos, photo)
@@ -71,7 +71,6 @@ class ReviewQueryRepositoryImpl: ReviewQueryRepository {
 
     override fun findReviewByReviewId(reviewId: String): Review {
         val review = QReview.review
-        println(reviewId)
         val found = query.select(review)
                 .from(review)
                 .where(review.reviewId.eq(reviewId))

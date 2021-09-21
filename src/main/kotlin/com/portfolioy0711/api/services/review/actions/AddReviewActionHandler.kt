@@ -78,15 +78,15 @@ open class AddReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
             val rewardModel = eventDatabase.rewardModel
 
             rewardModel.save(
-                    Reward
-                            .Builder()
-                            .rewardId(UUID.randomUUID().toString())
-                            .reviewId(eventInfo.reviewId)
-                            .operation(addOperation)
-                            .pointDelta(currPoint + addPoint)
-                            .reason(addReason)
-                            .user(user)
-                            .build()
+                Reward
+                    .Builder()
+                    .rewardId(UUID.randomUUID().toString())
+                    .reviewId(eventInfo.reviewId)
+                    .operation(addOperation)
+                    .pointDelta(currPoint + addPoint)
+                    .reason(addReason)
+                    .user(user)
+                    .build()
             )
 
             logger.info("""    [✔︎] REWARDS %s record created", addOperation""")
@@ -94,13 +94,13 @@ open class AddReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
             val photoIds = eventInfo.attachedPhotoIds
 
             photoIds.stream()
-                    .map{ photoId ->
-                        Photo.Builder()
-                                .photoId(photoId)
-                                .review(review)
-                                .build()
-                    }
-                    .forEach(photoModel::save)
+                .map{ photoId ->
+                    Photo.Builder()
+                            .photoId(photoId)
+                            .review(review)
+                            .build()
+                }
+                .forEach(photoModel::save)
 
             logger.info("""    [✔︎] %s PHOTOS created & attached", photoIds.size""")
             userModel.updateRewardPoint(eventInfo.userId, currPoint + addPoint);

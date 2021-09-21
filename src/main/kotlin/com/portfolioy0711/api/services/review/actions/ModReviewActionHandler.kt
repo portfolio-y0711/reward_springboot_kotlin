@@ -20,7 +20,7 @@ open class ModReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
 
         logger.info("""[EVENT: ReviewEventActionHandler (${eventInfo.action})] started process ========================START"""");
         val reviewModel = eventDatabase.reviewModel
-        val found = reviewModel.findReviewInfoByReviewId(eventInfo.reviewId)
+        val found = reviewModel.findReviewByReviewId(eventInfo.reviewId)
 
         if (found == null) {
             logger.error("""    ‣ no record exists by that reviewId""")
@@ -112,32 +112,34 @@ open class ModReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
             logger.info("""    transaction started ------------------------------------BEGIN"""")
         }
 
-        val currentReview = reviewModel.findReviewInfoByReviewId(eventInfo.reviewId)
+        val currentReview = reviewModel.findReviewInfoByReviewId_native(eventInfo.reviewId)
+
         val currentPhotoIds = currentReview!!.photoIds.toList()
         val newPhotoIds = eventInfo.attachedPhotoIds.toList()
 
         val add_photo_ids: Array<String> = eventInfo.attachedPhotoIds.stream()
-                .filter { photoId ->  currentPhotoIds.contains(photoId )}
+                .filter { photoId -> currentPhotoIds.contains(photoId) }
                 .toList().toTypedArray()
 
         val delete_photo_ids: Array<String> = currentPhotoIds.stream()
-                .filter{ currentPhotoId -> !newPhotoIds.contains(currentPhotoId) }
+                .filter { currentPhotoId -> !newPhotoIds.contains(currentPhotoId) }
                 .toList().toTypedArray()
 
         val photoModel = eventDatabase.photoModel
 
-        if (add_photo_ids.isNotEmpty() || delete_photo_ids.isNotEmpty()) {
-            val review = reviewModel.findReviewByReviewId(eventInfo.reviewId)
+        val review = reviewModel.findReviewByReviewId(eventInfo.reviewId)
 
+        if (add_photo_ids.isNotEmpty()) {
             Arrays.stream(add_photo_ids)
-                    .map{photoId -> Photo(photoId, review) }
+                    .map { photoId -> Photo(photoId, review) }
                     .forEach(photoModel::save)
-
+        }
+        if (delete_photo_ids.isNotEmpty()) {
             Arrays.stream(delete_photo_ids)
                     .forEach(photoModel::remove)
-
-            logger.info("""    [✔︎] PHOTOS has been updated""")
         }
+
+        logger.info("""    [✔︎] PHOTOS has been updated""")
 
         reviewModel.updateReview(
                 eventInfo.reviewId,
@@ -148,7 +150,6 @@ open class ModReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
         logger.info("""    transaction finished -------------------------------------END""")
 
         logger.info("===================================================================================END")
-
     }
 }
 

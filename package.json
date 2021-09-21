@@ -5,7 +5,8 @@
   "scripts": {
     "start": "gradle bootRun --args='--spring.profiles.active=production'",
     "start:prod": "SPRING_PROFILES_ACTIVE=production gradle clean bootRun",
-    "b": "gradle build",
+    "build": "gradle build",
+    "b": "gradle build -x test",
     "s": "java -jar build/libs/demo-0.0.1-SNAPSHOT.jar production"
   },
   "repository": "https://github.com/portfolio-y0711/reward_springboot_kotlin.git",

@@ -24,7 +24,7 @@ data class Review(
 ): Base() {
 
     override fun toString(): String {
-        return """Review(reviewId: ${reviewId}, place:${place.placeId}, user: ${user.userId}, content: ${content}, rewarded: ${rewarded}, photos: ${photos.toString()})"""
+        return """Review(reviewId: ${reviewId}, content: ${content}, rewarded: ${rewarded})"""
     }
 
     override fun equals(other: Any?): Boolean {

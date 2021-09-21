@@ -6,5 +6,7 @@ data class ReviewResponse(
        val userId: String,
        val content: String,
        val rewarded: Int,
-       val photoIds: Set<String>
-)
+       val photoIds: Set<String> = hashSetOf()
+) {
+}
+
