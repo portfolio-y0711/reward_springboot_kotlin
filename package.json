@@ -1,0 +1,14 @@
+{
+  "name": "triple_kotlinboot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "gradle bootRun --args='--spring.profiles.active=production'",
+    "start:prod": "SPRING_PROFILES_ACTIVE=production gradle clean bootRun",
+    "b": "gradle build",
+    "s": "java -jar build/libs/demo-0.0.1-SNAPSHOT.jar production"
+  },
+  "repository": "https://github.com/portfolio-y0711/reward_springboot_kotlin.git",
+  "author": "portfolio-y0711 <portfolio-y0711@gmail.com>",
+  "license": "MIT"
+}

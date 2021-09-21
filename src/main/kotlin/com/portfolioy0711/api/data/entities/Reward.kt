@@ -16,7 +16,7 @@ data class Reward(
     private constructor(builder: Builder): this(builder.rewardId, builder.reviewId, builder.user, builder.operation, builder.pointDelta, builder.reason)
 
     override fun toString(): String {
-        return super.toString()
+        return """Reward(rewardId: ${rewardId}, reviewId:${reviewId}, operation: ${operation}, pointDelta: ${pointDelta}, reason: ${reason}})"""
     }
 
     class Builder {

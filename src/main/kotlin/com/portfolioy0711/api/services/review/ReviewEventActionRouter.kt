@@ -22,7 +22,6 @@ class ReviewEventActionRouter : EventRouter {
         val eventInfo: ReviewEventDto = EventValidator(body)
                 .validate("action", ReviewActionEnum.getReviewActionTypes())
                 .transform<ReviewEventDto>(ReviewEventDto::class.java)
-        println(eventInfo)
         this.routes[eventInfo.action]!!.handleEvent(eventInfo)
 
     }

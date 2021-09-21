@@ -17,8 +17,9 @@ open class AddReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
     @Transactional
     override fun handleEvent(event: Any) {
         val eventInfo = event as ReviewEventDto
-        val reviewModel = eventDatabase.reviewModel
+
         logger.info(String.format("[EVENT: ReviewEventActionHandler (%s)] started process ========================START", eventInfo.action));
+        val reviewModel = eventDatabase.reviewModel
 
         val isDuplicate: Boolean = reviewModel.checkRecordExistsByReviewId(eventInfo.reviewId)
 
@@ -34,14 +35,13 @@ open class AddReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
         logger.info("""    ‣    place id : ${eventInfo.placeId}""")
         logger.info("""    ‣    review counts: $reviewCount""")
         logger.info("""    ‣    review rewardable?: ${if (isRewardable) "YES" else "NO"}""")
+
         logger.info("""    transaction started ------------------------------------BEGIN""")
 
         val placeModel = eventDatabase.placeModel
         val place = placeModel.findPlaceByPlaceId(eventInfo.placeId)
-
         val userModel = eventDatabase.userModel
         val user = userModel.findUserByUserId(eventInfo.userId)
-
         val review = reviewModel.save(
                 Review.Builder()
                         .reviewId(eventInfo.reviewId)
@@ -51,7 +51,6 @@ open class AddReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
                         .place(place)
                         .build()
         )
-
         logger.info("""    [✔︎] REVIEWS review has been created""")
 
         if (isRewardable) {
@@ -62,7 +61,6 @@ open class AddReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
 
             val contentPoint = if (eventInfo.content.length > 1) 1 else 0
             val photosPoint = if (eventInfo.attachedPhotoIds.size > 1) 1 else 0
-
             val addPoint = contentPoint + photosPoint + bonusPoint
 
             logger.info("""    + content point: $contentPoint""")

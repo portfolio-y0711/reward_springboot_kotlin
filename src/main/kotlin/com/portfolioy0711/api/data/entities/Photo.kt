@@ -10,8 +10,24 @@ data class Photo(
         val review: Review
 ): Base() {
     override fun toString(): String {
-        return super.toString()
+        return """Photo(placeId: ${photoId})"""
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Photo
+
+        if (photoId != other.photoId) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return photoId.hashCode()
+    }
+
 
     private constructor(builder: Builder) : this(builder.photoId, builder.review)
 

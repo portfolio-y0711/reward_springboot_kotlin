@@ -11,6 +11,7 @@ import com.portfolioy0711.api.data.models.user.UserCmdRepository
 import com.querydsl.jpa.impl.JPAQueryFactory
 import junit.framework.Assert.assertEquals
 import org.junit.Ignore
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -33,10 +34,13 @@ internal class ReviewModelTest {
     @Autowired
     lateinit var reviewModel: ReviewModel
 
+    @AfterEach
+    fun tearDown() {
+        reviewModel.deleteAll()
+    }
 
     @Test
-    @Transactional
-    internal fun `reviewModel_checkRecordExistsByReviewId`() {
+    fun `reviewModel_checkRecordExistsByReviewId`() {
 
         val placeId = "2e4baf1c-5acb-4efb-a1af-eddada31b00f"
         val place = placeCmd.save(
@@ -81,24 +85,22 @@ internal class ReviewModelTest {
     }
 
     @Test
-    @Ignore
-    @Transactional
-    internal fun `reviewModel_findReviewCountsByPlaceId`() {
+    fun `reviewModel_findReviewCountsByPlaceId`() {
         val review = QReview.review
         val placeId = "2e4baf1c-5acb-4efb-a1af-eddada31b00f"
 
-        val expected = 3
+        val expected = 0L
 
         val actual = query.select(review)
-            .where(review.place.placeId.eq(placeId))
-            .fetchCount()
+                .from(review)
+                .where(review.place.placeId.eq(placeId))
+                .fetchCount()
 
         assertEquals(expected, actual)
-
     }
 
     @Test
-    internal fun `reviewModel_save`() {
+    fun `reviewModel_save`() {
 
 
     }
