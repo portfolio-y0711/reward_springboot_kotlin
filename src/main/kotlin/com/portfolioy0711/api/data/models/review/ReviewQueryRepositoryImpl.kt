@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 import com.querydsl.core.group.GroupBy.groupBy
 import com.querydsl.core.types.Projections
+import org.springframework.transaction.annotation.Transactional
 
 
 @Repository
@@ -70,12 +71,16 @@ class ReviewQueryRepositoryImpl: ReviewQueryRepository {
 
     override fun findReviewByReviewId(reviewId: String): Review {
         val review = QReview.review
-        return query.select(review)
+        println(reviewId)
+        val found = query.select(review)
                 .from(review)
                 .where(review.reviewId.eq(reviewId))
                 .fetchOne()!!
+        println(found)
+        return found
     }
 
+    @Transactional
     override fun updateReview(reviewId: String, content: String): Long {
         val review = QReview.review
         return query.update(review)

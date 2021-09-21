@@ -39,6 +39,7 @@ class ReviewModel(
         return reviewQueryRepository.updateReview(reviewId, content)
     }
 
+    @Transactional
     fun remove(reviewId: String) {
         return reviewCmdRepository.deleteById(reviewId)
     }

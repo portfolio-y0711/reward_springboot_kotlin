@@ -4,6 +4,8 @@ import com.portfolioy0711.api.data.EventDatabase
 import com.portfolioy0711.api.services.EventService
 import com.portfolioy0711.api.services.review.ReviewEventActionRouter
 import com.portfolioy0711.api.services.review.actions.AddReviewActionHandler
+import com.portfolioy0711.api.services.review.actions.DelReviewActionHandler
+import com.portfolioy0711.api.services.review.actions.ModReviewActionHandler
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -20,6 +22,8 @@ class EventController(private val eventService: EventService, private val eventD
         val reviewEventRouter = ReviewEventActionRouter()
         reviewEventRouter
                 .addRoute("ADD", AddReviewActionHandler(eventDatabase))
+                .addRoute("MOD", ModReviewActionHandler(eventDatabase))
+                .addRoute("DELETE", DelReviewActionHandler(eventDatabase))
 
         this.eventService
                 .addEventRouter("REVIEW", reviewEventRouter)

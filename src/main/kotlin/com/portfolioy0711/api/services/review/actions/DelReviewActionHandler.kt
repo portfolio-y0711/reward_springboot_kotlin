@@ -18,6 +18,7 @@ open class DelReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
 
         logger.info("""[EVENT: ReviewEventActionHandler (${eventInfo.action})] started process ========================START""")
         val reviewModel = eventDatabase.reviewModel
+
         val found = reviewModel.findReviewInfoByReviewId(eventInfo.reviewId)
 
         if (found == null) {

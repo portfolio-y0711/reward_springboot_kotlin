@@ -17,8 +17,9 @@ open class AddReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
     @Transactional
     override fun handleEvent(event: Any) {
         val eventInfo = event as ReviewEventDto
-        val reviewModel = eventDatabase.reviewModel
+
         logger.info(String.format("[EVENT: ReviewEventActionHandler (%s)] started process ========================START", eventInfo.action));
+        val reviewModel = eventDatabase.reviewModel
 
         val isDuplicate: Boolean = reviewModel.checkRecordExistsByReviewId(eventInfo.reviewId)
 

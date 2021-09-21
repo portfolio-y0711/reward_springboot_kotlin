@@ -27,6 +27,33 @@ data class Review(
         return """Review(reviewId: ${reviewId}, place:${place.placeId}, user: ${user.userId}, content: ${content}, rewarded: ${rewarded}, photos: ${photos.toString()})"""
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Review
+
+        if (reviewId != other.reviewId) return false
+        if (place != other.place) return false
+        if (user != other.user) return false
+        if (content != other.content) return false
+        if (rewarded != other.rewarded) return false
+        if (photos != other.photos) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = reviewId.hashCode()
+        result = 31 * result + place.hashCode()
+        result = 31 * result + user.hashCode()
+        result = 31 * result + content.hashCode()
+        result = 31 * result + rewarded
+        result = 31 * result + photos.hashCode()
+        return result
+    }
+
+
     private constructor(builder: Builder) : this(builder.reviewId, builder.place, builder.user, builder.content, builder.rewarded)
 
     class Builder {

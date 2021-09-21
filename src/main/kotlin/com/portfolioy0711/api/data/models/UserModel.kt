@@ -22,7 +22,6 @@ class UserModel(
         return userQueryRepository.findUserRewardPoint(userId)
     }
 
-    @Transactional
     fun findUserByUserId(userId: String): User {
         return userQueryRepository.findUserByUserId(userId)
     }

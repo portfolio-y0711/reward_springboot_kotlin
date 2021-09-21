@@ -80,6 +80,7 @@ open class ModReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
                 rewardModel.save(
                         Reward.Builder()
                                 .rewardId(UUID.randomUUID().toString())
+                                .reviewId(eventInfo.reviewId)
                                 .user(user)
                                 .reason(subtract_reason)
                                 .operation(subtract_operation)
@@ -90,6 +91,7 @@ open class ModReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
                 rewardModel.save(
                         Reward.Builder()
                                 .rewardId(UUID.randomUUID().toString())
+                                .reviewId(eventInfo.reviewId)
                                 .user(user)
                                 .reason(add_reason)
                                 .operation(add_operation)
@@ -107,12 +109,11 @@ open class ModReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
                 logger.info("""    [✔︎] USERS total rewardPoint updated""")
             }
         } else {
-            logger.info("\ttransaction started ------------------------------------BEGIN");
+            logger.info("""    transaction started ------------------------------------BEGIN"""")
         }
 
         val currentReview = reviewModel.findReviewInfoByReviewId(eventInfo.reviewId)
         val currentPhotoIds = currentReview!!.photoIds.toList()
-
         val newPhotoIds = eventInfo.attachedPhotoIds.toList()
 
         val add_photo_ids: Array<String> = eventInfo.attachedPhotoIds.stream()

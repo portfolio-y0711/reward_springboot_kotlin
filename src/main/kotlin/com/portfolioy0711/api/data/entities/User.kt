@@ -14,8 +14,6 @@ data class User(
 ): Base() {
     private constructor(builder: Builder): this(builder.userId, builder.name, builder.rewardPoint)
 
-
-
     override fun toString(): String {
         return """User(userId: ${userId}, name: ${name}, rewardPoint: ${rewardPoint})"""
     }
@@ -42,14 +40,8 @@ data class User(
 
     class Builder {
         lateinit var userId: String
-            private set
-
         lateinit var name: String
-            private set
-
         var rewardPoint by Delegates.notNull<Int>()
-            private set
-
 //        lateinit var reviews: Set<Review>
 //            private set
 
