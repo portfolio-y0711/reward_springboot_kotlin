@@ -22,6 +22,7 @@ class UserModel(
         return userQueryRepository.findUserRewardPoint(userId)
     }
 
+    @Transactional
     fun findUserByUserId(userId: String): User {
         return userQueryRepository.findUserByUserId(userId)
     }
@@ -29,5 +30,10 @@ class UserModel(
     @Transactional
     fun updateRewardPoint(userId: String, rewardPoint: Int): Long {
         return userQueryRepository.updateRewardPoint(userId, rewardPoint)
+    }
+
+    @Transactional
+    fun deleteAll() {
+        return userCmdRepository.deleteAll()
     }
 }

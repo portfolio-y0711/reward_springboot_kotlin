@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
+import javax.persistence.FlushModeType
 
 @SpringBootTest
 internal class PlaceModelTest {
@@ -25,7 +26,7 @@ internal class PlaceModelTest {
 
     @Test
     @Transactional
-    internal fun `placeModel_findPlaceByPlaceId(placeId)`() {
+    fun `placeModel_findPlaceByPlaceId`() {
         val expected = Place.Builder()
             .placeId("2e4baf1c-5acb-4efb-a1af-eddada31b00f")
             .country("호주")

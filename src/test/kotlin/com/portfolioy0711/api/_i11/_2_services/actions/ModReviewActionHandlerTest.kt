@@ -1,22 +1,115 @@
-package com.portfolioy0711.api.services.review.actions
+package com.portfolioy0711.api._i11._2_services.actions
 
 import com.portfolioy0711.api.data.EventDatabase
-import com.portfolioy0711.api.data.entities.Photo
-import com.portfolioy0711.api.data.entities.Reward
-import com.portfolioy0711.api.services.review.ActionHandler
+import com.portfolioy0711.api.data.entities.*
+import com.portfolioy0711.api.data.models.*
 import com.portfolioy0711.api.typings.dto.ReviewEventDto
 import com.portfolioy0711.api.typings.exception.NoRecordException
+import org.junit.Ignore
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
 import kotlin.streams.toList
 
-open class ModReviewActionHandler(val eventDatabase: EventDatabase) : ActionHandler {
-    private val logger = LoggerFactory.getLogger(javaClass)
+@SpringBootTest
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+class ModReviewActionHandlerTest {
+    val logger: Logger = LoggerFactory.getLogger(javaClass)
 
-    @Transactional
-    override fun handleEvent(event: Any) {
-        val eventInfo = event as ReviewEventDto
+    @Autowired
+    lateinit var eventDatabase: EventDatabase
+
+    @Autowired
+    lateinit var userModel: UserModel
+
+    @Autowired
+    lateinit var placeModel: PlaceModel
+
+    @Autowired
+    lateinit var reviewModel: ReviewModel
+
+    @Autowired
+    lateinit var photoModel: PhotoModel
+
+    @Autowired
+    lateinit var rewardModel: RewardModel
+
+    @BeforeAll
+    internal fun setUp() {
+        val _user = userModel.save(
+                User.Builder()
+                        .userId("3ede0ef2-92b7-4817-a5f3-0c575361f745")
+                        .name("Michael")
+                        .rewardPoint(3)
+                        .build()
+        )
+        val _place = placeModel.save(
+                Place.Builder()
+                        .placeId("2e4baf1c-5acb-4efb-a1af-eddada31b00f")
+                        .name("멜번")
+                        .country("호주")
+                        .bonusPoint(0)
+                        .build()
+        )
+        val _review = reviewModel.save(
+                Review.Builder()
+                        .reviewId("240a0658-dc5f-4878-9831-ebb7b26687772")
+                        .content("좋아요")
+                        .user(_user)
+                        .place(_place)
+                        .rewarded(1)
+                        .build()
+        )
+        photoModel.save(
+                Photo.Builder()
+                        .review(_review)
+                        .photoId("e4d1a64e-a531-46de-88d0-ff0ed70c0bb8")
+                        .build()
+        )
+
+        photoModel.save(
+                Photo.Builder()
+                        .review(_review)
+                        .photoId("afb0cef2-851d-4a50-bb07-9cc15cbdc332")
+                        .build()
+        )
+
+        val uuid = UUID.randomUUID()
+
+        rewardModel.save(
+                Reward.Builder()
+                        .rewardId(uuid.toString())
+                        .reviewId(_review.reviewId)
+                        .user(_user)
+                        .pointDelta(2)
+                        .operation("ADD")
+                        .reason("NEW")
+                        .build()
+        )
+    }
+
+    @Test
+    internal fun `ModReviewActionHandler should handler "MOD" action of "REVIEW" type event `() {
+        val eventInfo = ReviewEventDto
+                .Builder()
+                .type("REVIEW")
+                .action("MOD")
+                .content("좋아요")
+                .attachedPhotoIds(hashSetOf(
+                    "e4d1a64e-a531-46de-88d0-ff0ed70c0bb8",
+                    "afb0cef2-851d-4a50-bb07-9cc15cbdc332"
+                ))
+                .placeId("2e4baf1c-5acb-4efb-a1af-eddada31b00f")
+                .reviewId("240a0658-dc5f-4878-9831-ebb7b26687772")
+                .userId("3ede0ef2-92b7-4817-a5f3-0c575361f745")
+                .build()
 
         logger.info("""[EVENT: ReviewEventActionHandler (${eventInfo.action})] started process ========================START"""");
         val reviewModel = eventDatabase.reviewModel
@@ -42,7 +135,6 @@ open class ModReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
             logger.info("""      reason: ${latestRewardRecord.reason} review""")
             logger.info("""      operation: ${latestRewardRecord.operation} ${latestRewardRecord.pointDelta}""")
 
-            val placeModel = eventDatabase.placeModel
             val place = placeModel.findPlaceByPlaceId(eventInfo.placeId)
             val bonusPoint = place.bonusPoint
 
@@ -59,16 +151,15 @@ open class ModReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
             val diff = totalPoint - latestRewardRecord.pointDelta
             logger.info("""    ‣ point diff: $diff""")
 
-            val isPointUpdateNeeded = (diff != 0)
+            val isPointUpdatedNeeded = (diff != 0)
 
-            if (isPointUpdateNeeded) {
+            if (isPointUpdatedNeeded) {
                 val subtract_operation = "SUB"
                 val subtract_reason = "MOD"
 
                 val add_operation = "ADD"
                 val add_reason = "MOD"
 
-                val userModel = eventDatabase.userModel
                 val user = userModel.findUserByUserId(eventInfo.userId)
                 val currPoint = user.rewardPoint
 
@@ -78,23 +169,23 @@ open class ModReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
                 logger.info("   transaction started ------------------------------------BEGIN")
 
                 rewardModel.save(
-                        Reward.Builder()
-                                .rewardId(UUID.randomUUID().toString())
-                                .user(user)
-                                .reason(subtract_reason)
-                                .operation(subtract_operation)
-                                .pointDelta(currPoint)
-                                .build()
+                    Reward.Builder()
+                            .rewardId(UUID.randomUUID().toString())
+                            .user(user)
+                            .reason(subtract_reason)
+                            .operation(subtract_operation)
+                            .pointDelta(currPoint)
+                            .build()
                 )
 
                 rewardModel.save(
-                        Reward.Builder()
-                                .rewardId(UUID.randomUUID().toString())
-                                .user(user)
-                                .reason(add_reason)
-                                .operation(add_operation)
-                                .pointDelta(totalPoint)
-                                .build()
+                    Reward.Builder()
+                            .rewardId(UUID.randomUUID().toString())
+                            .user(user)
+                            .reason(add_reason)
+                            .operation(add_operation)
+                            .pointDelta(totalPoint)
+                            .build()
                 )
 
                 logger.info("""    [✔︎] REWARDS $subtract_operation record created""")
@@ -123,13 +214,11 @@ open class ModReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
                 .filter{ currentPhotoId -> !newPhotoIds.contains(currentPhotoId) }
                 .toList().toTypedArray()
 
-        val photoModel = eventDatabase.photoModel
-
-        if (add_photo_ids.isNotEmpty() || delete_photo_ids.isNotEmpty()) {
+        if (add_photo_ids.size > 0 || delete_photo_ids.size > 0) {
             val review = reviewModel.findReviewByReviewId(eventInfo.reviewId)
 
             Arrays.stream(add_photo_ids)
-                    .map{photoId -> Photo(photoId, review) }
+                    .map{photoId -> Photo(photoId, review)}
                     .forEach(photoModel::save)
 
             Arrays.stream(delete_photo_ids)
@@ -147,8 +236,5 @@ open class ModReviewActionHandler(val eventDatabase: EventDatabase) : ActionHand
         logger.info("""    transaction finished -------------------------------------END""")
 
         logger.info("===================================================================================END")
-
     }
 }
-
-

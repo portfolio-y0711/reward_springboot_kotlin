@@ -4,6 +4,7 @@ import com.portfolioy0711.api.data.entities.QUser
 import com.portfolioy0711.api.data.entities.User
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Repository
+import org.springframework.transaction.annotation.Transactional
 
 @Repository
 class UserQueryRepositoryImpl(
@@ -28,6 +29,7 @@ class UserQueryRepositoryImpl(
                 .fetchOne()!!
     }
 
+    @Transactional
     override fun updateRewardPoint(userId: String, rewardPoint: Int): Long {
         val user = QUser.user
         var result = 0L
@@ -38,7 +40,7 @@ class UserQueryRepositoryImpl(
                .set(user.rewardPoint, rewardPoint)
                .execute()
         } catch (e: Exception) {
-            println()
+            println(e.message)
         }
         return result
     }
