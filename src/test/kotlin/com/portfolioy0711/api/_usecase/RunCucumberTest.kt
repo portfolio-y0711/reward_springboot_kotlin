@@ -12,8 +12,8 @@ import org.junit.runner.RunWith
         stepNotifications = true,
         features = [
             "src/test/resources/features/ADD/scenarios.add.feature",
-            "src/test/resources/features/MOD/scenarios.mod.feature",
-            "src/test/resources/features/DEL/scenarios.del.feature"
+//            "src/test/resources/features/MOD/scenarios.mod.feature",
+//            "src/test/resources/features/DEL/scenarios.del.feature"
         ],
         plugin = ["pretty"]
 )

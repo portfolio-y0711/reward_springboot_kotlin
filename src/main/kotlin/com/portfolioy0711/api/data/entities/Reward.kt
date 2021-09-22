@@ -19,6 +19,33 @@ data class Reward(
         return """Reward(rewardId: ${rewardId}, reviewId:${reviewId}, operation: ${operation}, pointDelta: ${pointDelta}, reason: ${reason}})"""
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Reward
+
+        if (rewardId != other.rewardId) return false
+        if (reviewId != other.reviewId) return false
+        if (user != other.user) return false
+        if (operation != other.operation) return false
+        if (pointDelta != other.pointDelta) return false
+        if (reason != other.reason) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = rewardId.hashCode()
+        result = 31 * result + reviewId.hashCode()
+        result = 31 * result + user.hashCode()
+        result = 31 * result + operation.hashCode()
+        result = 31 * result + pointDelta
+        result = 31 * result + reason.hashCode()
+        return result
+    }
+
+
     class Builder {
         lateinit var rewardId: String
         lateinit var reviewId: String

@@ -29,12 +29,10 @@ class DataSeeder: CommandLineRunner, ApplicationRunner {
     lateinit var eventDatabase: EventDatabase
 
     fun seedUsers() {
-//        val resource = ClassPathResource("/seeds/users.json").file
         val classPathResource = ClassPathResource("/seeds/users.json");
         val isr = InputStreamReader(classPathResource.getInputStream());
         val streamOfString = BufferedReader(isr).lines();
         val json = streamOfString.collect(Collectors.joining());
-//        val json = String(Files.readAllBytes(resource.toPath()))
 
         val objectMapper = ObjectMapper()
         val users: List<User> = objectMapper.readValue(json)
@@ -43,12 +41,10 @@ class DataSeeder: CommandLineRunner, ApplicationRunner {
     }
 
     fun seedPlaces() {
-//        val resource = ClassPathResource("/seeds/places.json").file
         val classPathResource = ClassPathResource("/seeds/places.json");
         val  isr =  InputStreamReader(classPathResource.getInputStream());
         val streamOfString = BufferedReader(isr).lines();
         val json = streamOfString.collect(Collectors.joining());
-//        val json = String(Files.readAllBytes(resource.toPath()))
         val objectMapper = ObjectMapper()
         val places: List<Place> = objectMapper.readValue(json)
         val placeModel = eventDatabase.placeModel;

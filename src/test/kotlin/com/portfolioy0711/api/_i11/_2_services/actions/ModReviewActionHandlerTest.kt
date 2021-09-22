@@ -215,7 +215,7 @@ class ModReviewActionHandlerTest {
                 .toList().toTypedArray()
 
         if (add_photo_ids.size > 0 || delete_photo_ids.size > 0) {
-            val review = reviewModel.findReviewByReviewId(eventInfo.reviewId)
+            val review = reviewModel.findReviewByReviewId(eventInfo.reviewId)!!
 
             Arrays.stream(add_photo_ids)
                     .map{photoId -> Photo(photoId, review)}

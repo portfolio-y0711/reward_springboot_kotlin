@@ -84,7 +84,7 @@ class ScenarioAddSteps: En {
             assertEquals(reviewCounts, 0)
         }
 
-        Given("ADD_4_유저가 아래와 같이 리뷰글을 작성함") { dataTable: DataTable ->
+        When("ADD_4_유저가 아래와 같이 리뷰글을 작성함") { dataTable: DataTable ->
             val review: Map<String, String> = dataTable.asMaps()[0]
             val type = review.get("type")!!
             val action = review.get("action")!!
@@ -116,12 +116,18 @@ class ScenarioAddSteps: En {
             val reason = reward.get("reason")!!
 
             val actual = rewardModel.findLatestUserReviewRewardByReviewId(userId, reviewId)
-//            assertEquals(dataTable, "")
+
+            assertEquals(actual.user.userId, userId)
+            assertEquals(actual.reviewId, reviewId)
+            assertEquals(actual.operation, operation)
+            assertEquals(actual.pointDelta, pointDelta)
+            assertEquals(actual.reason, reason)
         }
 
         And("ADD_6_유저의 포인트 총점이 아래와 같아짐") { dataTable: DataTable ->
             val (userId, rewardPoint) = dataTable.row(1)
-//            assertEquals(userId, "")
+            val actual = userModel.findUserRewardPoint(userId)
+            assertEquals(rewardPoint.toInt(), actual)
         }
 
         And("ADD_7_유저의 리뷰 레코드가 아래와 같이 생성됨") { dataTable: DataTable ->
@@ -129,11 +135,18 @@ class ScenarioAddSteps: En {
             val reviewId = review.get("reviewId")!!
             val placeId = review.get("placeId")!!
             val content = review.get("content")!!
-            val attachedPhotoIds = (review.get("attachedPhotoIds") as String).split(",").toHashSet()
+//            val attachedPhotoIds = (review.get("attachedPhotoIds") as String).split(",").toHashSet()
             val userId = review.get("userId")!!
             val rewarded = review.get("rewarded")!!.toInt()
 
-//            assertEquals(dataTable, "")
+            val actual = reviewModel.findReviewByReviewId(reviewId)!!
+
+            assertEquals(actual.reviewId, reviewId)
+            assertEquals(actual.place.placeId, placeId)
+            assertEquals(actual.content, content)
+//            assertEquals(actual.photos, attachedPhotoIds)
+            assertEquals(actual.user.userId, userId)
+            assertEquals(actual.rewarded, rewarded)
         }
 
     }

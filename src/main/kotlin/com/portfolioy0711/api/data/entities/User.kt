@@ -42,13 +42,10 @@ data class User(
         lateinit var userId: String
         lateinit var name: String
         var rewardPoint by Delegates.notNull<Int>()
-//        lateinit var reviews: Set<Review>
-//            private set
 
         fun userId(userId: String) = apply { this.userId = userId }
         fun name(name: String) = apply { this.name = name }
         fun rewardPoint(rewardPoint: Int) = apply { this.rewardPoint = rewardPoint }
-//        fun reviews(reviews: Set<Review>) = apply { this.reviews = reviews }
 
         fun build() = User(userId, name, rewardPoint)
     }
